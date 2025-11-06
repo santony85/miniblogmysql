@@ -55,7 +55,7 @@ const formattedDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStar
 
 function requireLogin(req, res, next) {
   if (req.session.user === undefined) {
-     res.render('login', {page: "login"});
+     res.render('login.ejs', {page: "login"});
     } else {
       next();
     }
@@ -68,7 +68,7 @@ app.post('/login', function (req, res) {
    req.session.user={login:login,mdp :mdp};
    res.redirect('/');
  }
- else res.render('login') ;
+ else res.render('login.ejs') ;
  });
 
 app.get('/logout', function (req, res) {
@@ -82,7 +82,7 @@ app.get('/article/:id',(req, res) => {
       if (err) return;
       connection.query( 'SELECT * FROM comments WHERE idArticle='+id, (err, results2) => {
         if (err) return;
-        res.render('article',{item:results[0],comments:results2});
+        res.render('article.ejs',{item:results[0],comments:results2});
       });  
     });
 });
@@ -100,7 +100,7 @@ app.post('/article/:id',(req, res) => {
    });
 
 app.get('/new',requireLogin,(req, res) => {
-    res.render('new');
+    res.render('new.ejs');
    });
 
 app.post('/new',(req, res) => {
@@ -116,7 +116,7 @@ app.post('/new',(req, res) => {
 app.get('/',(req, res) => {
   connection.query('SELECT * FROM articles', (err, results) => {
     if (err)return;
-    res.render('index',{articles:results});
+    res.render('index.ejs',{articles:results});
   });
 });
 

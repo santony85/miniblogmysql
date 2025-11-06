@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas Circle on Click</title>
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="myCanvas" width="500" height="500"></canvas>
+
+  <script>
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Function to draw a circle at the clicked position
+    canvas.addEventListener('click', (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left; // Adjust for canvas position
+      const y = event.clientY - rect.top;
+
+      drawCircle(x, y);
+    });
+
+    function drawCircle(x, y) {
+      console.log("ici")  
+      const radius = 20; // Circle radius
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2); // Draw circle
+      ctx.fillStyle = 'blue'; // Circle color
+      ctx.fill(); // Fill the circle
+      ctx.closePath();
+    }
+  </script>
+</body>
+</html>

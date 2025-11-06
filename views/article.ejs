@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <title>Bootstrap Example</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+   <!-- Optional JavaScript -->
+   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+          <a class="navbar-brand" href="/">My MiniBlog</a>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-item nav-link active" href="/new">Nouveau</a>
+              <a class="nav-item nav-link active" href="/logout">logout</a>
+            </div>
+          </div>
+        </nav>
+          <div class="row" style="margin-top: 32px;">
+            <div class="col-md-2"> </div>
+            <div class="col-md-8">    
+            <div class="card" style="width: 98%;">
+                <img class="card-img-top" src="<%= item.image %>" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title"><%= item.title %></h5>
+                  <p class="card-text"><%= item.content %></p>
+                  <p></p>
+                  <h5>Commentaires</h5>
+                  <% comments.forEach(function(comm) { %>
+                     <p class="card-text">Le <small><%= comm.dateajout %></small> De <b><%= comm.pseudo %></b> : <%= comm.comm %></p>
+                  <% }); %>
+
+                  <p></p>
+                  <form action="/article/<%= item.id %>" method="POST">
+                    <p></p>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Nom</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" name="from" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                       <label for="exampleInputPassword1">Contenu</label>
+                       <textarea class="form-control" name="comm" rows="4"></textarea>
+                    </div>
+                    <p></p>
+                    <button type="submit" class="btn btn-primary">Commenter</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+    </div>
+</body>
+</html>
+

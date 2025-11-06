@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const mysql = require('mysql');
+//const mysql = require('mysql');
 var session = require('client-sessions');
 
 
@@ -25,7 +25,17 @@ app.use(session({
  ephemeral: true
 }));
 
-var connection = mysql.createConnection({
+require('dotenv').config();
+const mysql = require('mysql2');
+
+const connection = mysql.createConnection(process.env.DATABASE_URL);
+
+connection.connect(err => {
+  if (err) throw err;
+  console.log('Connecté à la base MySQL Railway !');
+});
+
+/*var connection = mysql.createConnection({
     host     : '192.168.4.1',
     user     : 'sqlasantero',
     password : 'savary',
@@ -38,7 +48,7 @@ var connection = mysql.createConnection({
 connection.connect(function(err){
     if(err)throw err;
     console.log("Connection ok")
-});
+});*/
 
 const now = new Date();
 const formattedDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;

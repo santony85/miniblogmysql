@@ -100,7 +100,7 @@ app.post('/article/:id',(req, res) => {
    });
 
 app.get('/new',requireLogin,(req, res) => {
-    res.render('new.ejs');
+    res.render('new.ejs');  
    });
 
 app.post('/new',(req, res) => {

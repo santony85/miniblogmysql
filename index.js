@@ -99,7 +99,7 @@ app.post('/article/:id',(req, res) => {
     res.redirect(`/article/${id}`);
    });
 
-app.get('/new',requireLogin,(req, res) => {
+app.get('/new',(req, res) => {
     res.render('new.ejs');  
    });
 

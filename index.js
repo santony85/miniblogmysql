@@ -1,4 +1,7 @@
 const express = require('express');
+const fs = require('fs');
+const https = require('https');
+
 const app = express();
 const mysql = require('mysql');
 var session = require('client-sessions');
@@ -7,6 +10,12 @@ var session = require('client-sessions');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set('view engine', 'ejs');
+
+// Charger les certificats SSL
+const options = {
+  key: fs.readFileSync('/tmp/certs/privkey.pem'),
+  cert: fs.readFileSync('/tmp/certs/fullchain.pem')
+};
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -32,11 +41,11 @@ app.use(session({
 
 connection.connect(err => {
   if (err) throw err;
-  console.log('Connecté à la base MySQL Railway !');
+  console.log('ConnectÃ© Ã  la base MySQL Railway !');
 });*/
 
 var connection = mysql.createConnection({
-    host     : '192.168.4.1',
+    host     : '127.0.0.1',
     user     : 'sqlasantero',
     password : 'savary',
     database : 'asantero_miniblog',
@@ -161,10 +170,13 @@ app.post('/api/newcomment/:id',(req, res) => {
 
 
 
-
-
-
-
-app.listen(10000, () => {
- console.log("Serveur démarré");
+// Lancer le serveur HTTPS
+https.createServer(options, app).listen(10000, () => {
+  console.log('Serveur HTTPS démarré sur le port 10000');
 });
+
+
+
+/*app.listen(10000, () => {
+ console.log("Serveur dÃ©marrÃ©");
+});*/
